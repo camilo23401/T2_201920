@@ -46,7 +46,6 @@ public class Controller {
 				case 2:
 					System.out.println("--------- \nDar cadena (simple) a ingresar: ");
 					dato = lector.next();
-					modelo.agregar(dato);
 					System.out.println("Dato agregado");
 					System.out.println("Numero actual de elementos " + modelo.darTamano() + "\n---------");						
 					break;
@@ -85,9 +84,25 @@ public class Controller {
 					System.out.println("--------- \nContenido del Arreglo: ");
 					view.printModelo(modelo);
 					System.out.println("Numero actual de elementos " + modelo.darTamano() + "\n---------");						
-					break;	
+					break;
 					
-				case 6: 
+				case 6:
+					try
+					{
+						String[] rta = modelo.agregarAQueue();
+						for(int i =0; i<rta.length-1;i++)
+						{
+							System.out.println(rta[i]);
+						}
+						modelo.agregarAStack();
+					}
+					catch(Exception e)
+					{
+						System.out.println("Se produjo un error " + e.toString());
+					}
+					break;
+					
+				case 7: 
 					System.out.println("--------- \n Hasta pronto !! \n---------"); 
 					lector.close();
 					fin = true;

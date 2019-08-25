@@ -18,7 +18,7 @@ public class TestMVCModelo {
 
 	public void setUp2() {
 		for(int i =0; i< CAPACIDAD;i++){
-			modelo.agregar(""+i);
+		
 		}
 	}
 

@@ -89,12 +89,11 @@ public class Controller {
 				case 6:
 					try
 					{
-						String[] rta = modelo.agregarAQueue();
-						for(int i =0; i<rta.length-1;i++)
+						String[] rta = modelo.agregarDatos();
+						for(int i =0; i<rta.length;i++)
 						{
 							System.out.println(rta[i]);
 						}
-						modelo.agregarAStack();
 					}
 					catch(Exception e)
 					{

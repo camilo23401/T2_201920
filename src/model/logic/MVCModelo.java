@@ -29,6 +29,8 @@ public class MVCModelo {
 	public MVCModelo()
 	{
 		datos = new ArregloDinamico(7);
+		queueDatos = new Queue<ViajeUber>();
+		stackDatos = new Stack<ViajeUber>();
 	}
 
 	/**
@@ -53,7 +55,7 @@ public class MVCModelo {
 	 * Requerimiento de agregar dato
 	 * @param dato
 	 */
-	public String[] agregarAQueue() throws IOException
+	public String[] agregarDatos() throws IOException
 	{	
 		int contador1 = 0;
 		String primerViaje =  "";
@@ -69,39 +71,20 @@ public class MVCModelo {
 				if(contador1 == 1)
 				{
 					primerViaje = "Primer Viaje \n Zona Origen: " + viajeNuevo.darSourceid() + "\n Zona Destino: " + viajeNuevo.darDstid() + "\n Hora " + viajeNuevo.darHora() + "\n Tiempo promedio " + viajeNuevo.darTiempoPromedio();
-					System.out.println(primerViaje);
 				}
-				//queueDatos.enqueue(viajeNuevo);
+				queueDatos.enqueue(viajeNuevo);
+				stackDatos.push(viajeNuevo);
 				ultimoLeido = viajeNuevo;
 			}
 			contador1++;
 		}
-		ultimoViaje = primerViaje; //"Ultimo Viaje \n Zona Origen: " + ultimoLeido.darSourceid() + "\n Zona Destino: " + ultimoLeido.darDstid() + "\n Hora " + ultimoLeido.darHora() + "\n Tiempo promedio " + ultimoLeido.darTiempoPromedio();
+		ultimoViaje = "Ultimo Viaje \n Zona Origen: " + ultimoLeido.darSourceid() + "\n Zona Destino: " + ultimoLeido.darDstid() + "\n Hora " + ultimoLeido.darHora() + "\n Tiempo promedio " + ultimoLeido.darTiempoPromedio();
 		String [] mensajesARetornar = new String[2];
 		mensajesARetornar[0] = primerViaje;
 		mensajesARetornar[1] = ultimoViaje;
 		lector.close();
 		
 		return mensajesARetornar;
-	}
-	
-	public void agregarAStack() throws IOException
-	{	
-		int contador1 = 0;
-		CSVReader lector = new CSVReader(new FileReader("data/bogota-cadastral-2018-1-All-HourlyAggregate.csv")); 
-		String [] siguiente;
-		while ((siguiente = lector.readNext()) != null) 
-		{
-			if(contador1!=0)
-			{
-				ViajeUber viajeNuevo = new ViajeUber(siguiente[0], siguiente[1], siguiente[2], siguiente[3]);
-				stackDatos.push(viajeNuevo);
-				//System.out.println("Si esto no aparece, el error es en el método queue datos");
-			}
-			contador1++;
-		}
-		lector.close();
-		System.out.println(contador1);
 	}
 	
 	public Queue<ViajeUber> clusterOrdenadoHora(String pHoraInicial)

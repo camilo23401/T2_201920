@@ -83,35 +83,71 @@ public class MVCModelo {
 		mensajesARetornar[0] = primerViaje;
 		mensajesARetornar[1] = ultimoViaje;
 		lector.close();
-		
+
 		return mensajesARetornar;
 	}
-	
+
 	public Queue<ViajeUber> clusterOrdenadoHora(String pHoraInicial)
 	{
-		//Inicializar una cola auxiliar, que se llenará cada vez que se encuentren meses ascendentemente consecutivos
-		
-		//Inicilizar la cola que será la respuesta eventualmente.
-		
-		//Ciclo que recorre cada elemento de la queue que entra. Si encuentra un valor mayor a la horaInicial que entra por párametro, empezará a 
-		//revisar si los elementos siguientes son mayores y agregar cada uno a la lista auxiliar
-		
-		//Se compara el tamaño de la queue auxiliar con la que será eventualmente la respuesta y se cambiará la respuesta por la auxiliar de ser necesario.
-		
-		
-		return null;
-	}
+		Queue<ViajeUber> auxiliar = new Queue<ViajeUber>();
+		Queue<ViajeUber> respuesta = new Queue<ViajeUber>();
+		int horaMayor = 0;
+		for(int i=0;i<queueDatos.darTamanio();i++)
+		{
+			ViajeUber actual = queueDatos.dequeue();
+			int numHoraObjeto = Integer.parseInt(actual.darHora());
+			int numHoraParametro = Integer.parseInt(pHoraInicial);
+			if(numHoraObjeto>=numHoraParametro) 
+			{
+				if(numHoraObjeto>=horaMayor)
+				{
+					horaMayor = numHoraObjeto;
+					auxiliar.enqueue(actual);	
+				}
+				else if(numHoraObjeto<horaMayor)
+				{
+					auxiliar = new Queue<ViajeUber>();
+					auxiliar.enqueue(actual);
+					horaMayor = numHoraObjeto;
+				}
+			}
+			else
+			{
+				for(int j=0;j<auxiliar.darTamanio();j++)
+				{
+					auxiliar.dequeue();
+				}
+				horaMayor = 0;
+			}
+			if(auxiliar.darTamanio()>=respuesta.darTamanio())
+			{
+				respuesta = auxiliar;
+			}
+		}
 	
+		return respuesta;
+	}
+
 	public Queue<ViajeUber> nViajesACiertaHora(int pN, String pHora)
 	{
-		//Se iniciliza un contador que corresponda a los N datos que se buscan.
-		//Se inicializa una lista local que será la respuesta
-		
-		//Se recorrerá totalmente los viajes del archivo. Cada vez que se encuentre uno a la hora buscada, se agregará  a la queue
-		//de respuesta y se sumará 1 al contador. Se repite hasta llegar a los N elementos deseados o hasta acabar la queue.
-		
-		//Se retorna la solucion.
-		return null;
+
+		int contadorElementosBuscados = 0;
+		boolean terminado = false;
+		Queue<ViajeUber> respuesta = new Queue<ViajeUber>();
+		for(int i =0;i<queueDatos.darTamanio()&&!terminado;i++)
+		{
+			ViajeUber actual = queueDatos.dequeue();
+			if(actual.darHora().equals(pHora))
+			{
+				contadorElementosBuscados++;
+				respuesta.enqueue(actual);
+			}
+			if(contadorElementosBuscados==pN)
+			{
+				terminado = true;
+			}
+		}
+		return respuesta;
 	}
 
 	/**

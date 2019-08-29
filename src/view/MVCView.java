@@ -20,7 +20,9 @@ public class MVCView
 			System.out.println("4. Eliminar String");
 			System.out.println("5. Imprimir el Arreglo");
 			System.out.println("6. Agregar datos al stack y a la queue");
-			System.out.println("7. Exitos");
+			System.out.println("7. Buscar mayor cantidades de viajes consecutivos ascendentes horariamente");
+			System.out.println("8. Buscar n datos según su hora");
+			System.out.println("9. Exitos");
 			System.out.println("Dar el numero de opcion a resolver, luego oprimir tecla Return: (e.g., 1):");
 		}
 

@@ -2,8 +2,10 @@ package controller;
 
 import java.util.Scanner;
 
+import model.data_structures.Queue;
 import model.logic.MVCModelo;
 import view.MVCView;
+import model.logic.ViajeUber;
 
 public class Controller {
 
@@ -101,7 +103,45 @@ public class Controller {
 					}
 					break;
 					
-				case 7: 
+				case 7:
+					System.out.println("Digite la hora mínima que quiere que se muestre: ");
+					String horaMinima = lector.next();
+					Queue<ViajeUber> lista = modelo.clusterOrdenadoHora(horaMinima);
+					int numViajesLista = lista.darTamanio();
+					int contadorViajesOrdenados = 0;
+					while(contadorViajesOrdenados<numViajesLista)
+					{
+						contadorViajesOrdenados++;
+						ViajeUber actual = lista.dequeue();
+						System.out.println("---------- Viaje " + contadorViajesOrdenados +"----------");
+						System.out.println("Hora: " + actual.darHora());
+						System.out.println("Zona origen: " + actual.darSourceid());
+						System.out.println("Zona destino: " + actual.darDstid());
+						System.out.println("Tiempo promedio: "+actual.darTiempoPromedio());
+					}
+					break;
+					
+				case 8:
+					System.out.println("Digite el número de elementos que desea contar");
+					int pN = Integer.parseInt(lector.next());
+					System.out.println("Digite la hora que desea buscar");
+					String hora = lector.next();
+					Queue<ViajeUber> viajes = modelo.nViajesACiertaHora(pN, hora);
+					int numViajes = viajes.darTamanio();
+					int contadorViajes = 0;
+					while (contadorViajes<numViajes)
+					{
+						contadorViajes++;
+						ViajeUber actual = viajes.dequeue();
+						System.out.println("---------- Viaje " + contadorViajes +"----------");
+						System.out.println("Hora: " + actual.darHora());
+						System.out.println("Zona origen: " + actual.darSourceid());
+						System.out.println("Zona destino: " + actual.darDstid());
+						System.out.println("Tiempo promedio: "+actual.darTiempoPromedio());
+					}
+					break;
+					
+				case 9: 
 					System.out.println("--------- \n Hasta pronto !! \n---------"); 
 					lector.close();
 					fin = true;
